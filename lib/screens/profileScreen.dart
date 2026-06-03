@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 3,
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: const Color.fromARGB(255, 249, 245, 245),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
@@ -106,14 +106,17 @@ class ProfileScreen extends StatelessWidget {
 
   // عنصر القائمة
   Widget buildMenuItem(IconData icon, String title) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.grey),
+    return Material(
+      color: Colors.transparent,
+      child: ListTile(
+        leading: Icon(icon, color: Colors.grey),
 
-      title: Text(title),
+        title: Text(title),
 
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
 
-      onTap: () {},
+        onTap: () {},
+      ),
     );
   }
 }
