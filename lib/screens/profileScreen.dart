@@ -8,19 +8,19 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[100],
 
-      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
+
         currentIndex: 3,
         selectedItemColor: Colors.black,
         unselectedItemColor: const Color.fromARGB(255, 249, 245, 245),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag_outlined),
-            label: '',
+            label: 'shopping',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'profile', ),
         ],
       ),
 
@@ -29,10 +29,9 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              // Header
+
               Row(
                 children: [
-                  // صورة البروفايل
                   CircleAvatar(
                     radius: 35,
                     backgroundImage: NetworkImage(
@@ -40,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 15),
-                  // الاسم والبريد
+
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,8 +62,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // زر الإعدادات
-                  IconButton(
+               IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.settings),
                   ),
@@ -73,7 +71,6 @@ class ProfileScreen extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              // القائمة
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(

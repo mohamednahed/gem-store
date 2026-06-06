@@ -14,7 +14,7 @@ class WelcomeScreen extends StatelessWidget {
             width: 1000,
           ),
 
-          Container(color: Colors.black.withOpacity(0.3)),
+          Container(color: Colors.black.withValues(alpha: 0.3)),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
               OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.white.withOpacity(0.4),
+                  backgroundColor: Colors.white.withValues(alpha: 0.4),
                   fixedSize: Size(250, 40),
                   side: const BorderSide(color: Colors.white, width: 1.5),
                 ),
