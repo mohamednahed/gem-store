@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gem_store/screens/auth/LogInScreen.dart';
-import 'package:gem_store/screens/auth/SignUpScreen.dart';
 import 'package:gem_store/screens/onboarding/OnboardingScreen.dart';
+import 'package:gem_store/screens/mainBottomNavbarScreens/BottmNavBar.dart';
 
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home:  const Signup());
+      home:     const BottmNavBar());
   }
   
 }
