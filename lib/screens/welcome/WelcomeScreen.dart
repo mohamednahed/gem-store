@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gem_store/screens/welcome/Intro1.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -39,7 +40,15 @@ class WelcomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 35),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const Intro1(), 
+                    ),
+                  );
+                },
                 style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white.withValues(alpha: 0.4),
                   fixedSize: Size(250, 40),
@@ -54,7 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 50)
+              const SizedBox(height: 50),
             ],
           ),
         ],
