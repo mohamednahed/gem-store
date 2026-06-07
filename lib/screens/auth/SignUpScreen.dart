@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gem_store/screens/auth/LogInScreen.dart';
 
 class Signup extends StatelessWidget {
   const Signup({super.key});
@@ -146,7 +147,15 @@ class Signup extends StatelessWidget {
                         children: [
                           Center(child: Text("Already have account ? ")),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const Login(), 
+                    ),
+                  );
+                            },
                             child: Text(
                               "log in",
                               style: TextStyle(

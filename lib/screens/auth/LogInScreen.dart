@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gem_store/screens/auth/SignUpScreen.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -51,7 +52,7 @@ class Login extends StatelessWidget {
                           return "Strong password";
                         },
                         onSaved: (newValue) => password = newValue,
-            
+
                         keyboardType: TextInputType.text,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -60,7 +61,7 @@ class Login extends StatelessWidget {
                           prefixIcon: Icon(Icons.password),
                         ),
                       ),
-            
+
                       const SizedBox(height: 20),
                       Align(
                         alignment: AlignmentGeometry.centerRight,
@@ -99,17 +100,17 @@ class Login extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _buildSocialIcon(Icons.apple, Colors.black, () {}),
-            
+
                           SizedBox(width: 20),
-            
+
                           _buildSocialIcon(
                             Icons.g_mobiledata_outlined,
                             Colors.yellow,
                             () {},
                           ),
-            
+
                           SizedBox(width: 20),
-            
+
                           _buildSocialIcon(Icons.facebook, Colors.blue, () {}),
                         ],
                       ),
@@ -119,7 +120,14 @@ class Login extends StatelessWidget {
                         children: [
                           Center(child: Text("Don't have an account ? ")),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Signup(),
+                                ),
+                              );
+                            },
                             child: Text(
                               "Sign Up",
                               style: TextStyle(
