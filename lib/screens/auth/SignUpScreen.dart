@@ -1,18 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:gem_store/screens/auth/LogInScreen.dart';
+import 'package:gem_store/ReusbleWidget.dart';
 
-class Signup extends StatelessWidget {
+
+class Signup extends StatefulWidget {
   const Signup({super.key});
 
   @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formKey = GlobalKey();
-    String? username;
-    String? email;
-    String? password;
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -20,93 +41,117 @@ class Signup extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Create \nyour account',
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Form(
-                  key: formKey,
+                  key: _formKey,
                   child: Column(
                     children: [
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.length < 15) {
-                            return "your username is too smaller";
-                          }
-                        },
-                        onSaved: (newValue) => username = newValue,
-
+                      CustomTextFormField(
+                        controller: _usernameController,
+                        hintText: "Enter your name",
+                        labelText: "Your name",
+                        prefixIcon: const Icon(Icons.person),
                         keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "Your name",
-                          hintText: "Enter your name",
-                          prefixIcon: Icon(Icons.person),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      TextFormField(
                         validator: (value) {
-                          if (value!.length < 15) {
-                            return "your email is too smaller";
+                          if (value == null || value.isEmpty) {
+                            return "يرجى إدخال الاسم";
                           }
+                          if (value.length < 3) {
+                            return "الاسم قصير جداً";
+                          }
+                          return null;
                         },
-                        onSaved: (newValue) => email = newValue,
+                      ),
+                      const SizedBox(height: 30),
 
+                      CustomTextFormField(
+                        controller: _emailController,
+                        hintText: "Email address",
+                        labelText: "Email address",
+                        prefixIcon: const Icon(Icons.email),
                         keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "Email address",
-                          hintText: "Email address",
-                          prefixIcon: Icon(Icons.email),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      TextFormField(
                         validator: (value) {
-                          if (value!.length < 8) {
-                            return "your password is too smaller";
+                          if (value == null || value.isEmpty) {
+                            return "يرجى إدخال البريد الإلكتروني";
                           }
+                          if (value.length < 15) {
+                            return "البريد الإلكتروني قصير جداً";
+                          }
+                          return null;
                         },
-                        onSaved: (newValue) => password = newValue,
+                      ),
+                      const SizedBox(height: 30),
 
+                      CustomTextFormField(
+                        controller: _passwordController,
+                        hintText: "Password",
+                        labelText: "Password",
+                        prefixIcon: const Icon(Icons.password),
+                        obscureText: _obscurePassword,
                         keyboardType: TextInputType.text,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          hintText: "Password",
-                          prefixIcon: Icon(Icons.password),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
                         ),
-                      ),
-                      SizedBox(height: 30),
-                      TextFormField(
                         validator: (value) {
-                          if (value != password) {
-                            return "The password not same";
+                          if (value == null || value.isEmpty) {
+                            return "يرجى إدخال كلمة المرور";
                           }
-                          return "same";
+                          if (value.length < 8) {
+                            return "كلمة المرور قصيرة جداً (8 أحرف كحد أدنى)";
+                          }
+                          return null;
                         },
-
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Confirm Password",
-                          hintText: "Confirm Password",
-                          prefixIcon: Icon(Icons.password),
-                        ),
                       ),
+                      const SizedBox(height: 30),
 
+                      CustomTextFormField(
+                        controller: _confirmPasswordController,
+                        hintText: "Confirm Password",
+                        labelText: "Confirm Password",
+                        prefixIcon: const Icon(Icons.password),
+                        obscureText: _obscureConfirmPassword,
+                        keyboardType: TextInputType.visiblePassword,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscureConfirmPassword = !_obscureConfirmPassword;
+                            });
+                          },
+                        ),
+                        validator: (value) {
+                          if (value != _passwordController.text) {
+                            return "كلمتا المرور غير متطابقتين";
+                          }
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 20),
 
                       ElevatedButton(
                         onPressed: () {
-                          if(formKey.currentState!.validate()){
-                              formKey.currentState!.save();
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                       
                           }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                         ),
-                        child: Text(
+                        child: const Text(
                           "SIGN UP",
                           style: TextStyle(color: Colors.white),
                         ),
@@ -114,53 +159,45 @@ class Signup extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 30),
                 Align(
-                  alignment: AlignmentGeometry.center,
+                  alignment: Alignment.center,
                   child: Column(
                     children: [
-                      SizedBox(height: 30),
-                      Text('or sign up with'),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
+                      const Text('or sign up with'),
+                      const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _buildSocialIcon(Icons.apple, Colors.black, () {}),
-
-                          SizedBox(width: 20),
-
+                          const SizedBox(width: 20),
                           _buildSocialIcon(
                             Icons.g_mobiledata_outlined,
                             Colors.yellow,
                             () {},
                           ),
-
-                          SizedBox(width: 10),
-
+                          const SizedBox(width: 10),
                           _buildSocialIcon(Icons.facebook, Colors.blue, () {}),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Center(child: Text("Already have account ? ")),
+                          const Center(child: Text("Already have account ? ")),
                           TextButton(
                             onPressed: () {
                               Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const Login(), 
-                    ),
-                  );
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Login(),
+                                ),
+                              );
                             },
-                            child: Text(
+                            child: const Text(
                               "log in",
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 0, 0, 0),
-                              ),
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ],

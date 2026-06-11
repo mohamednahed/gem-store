@@ -26,6 +26,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +43,6 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
 
   @override
   Widget build(BuildContext context) {
-
     bool isButtonEnabled = !_isPasswordEmpty && !_isConfirmPasswordEmpty;
 
     return Scaffold(
@@ -59,7 +59,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
 
                 GestureDetector(
                   onTap: () {
-                    //                   Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(12),
@@ -125,7 +125,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(vertical: 10),
                     hintText: 'New Password',
-                    hintStyle: TextStyle( letterSpacing: 0.5),
+                    hintStyle: TextStyle(letterSpacing: 0.5),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isPasswordObscured
@@ -188,7 +188,6 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                     width: 220,
                     height: 50,
                     child: ElevatedButton(
-                      
                       onPressed: () {
                         isButtonEnabled ? _handleConfirmPassword : null;
                       },
@@ -198,7 +197,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                         foregroundColor: Colors.white,
                         disabledForegroundColor: Colors.white.withOpacity(0.9),
                         shape: const StadiumBorder(),
-                        elevation: isButtonEnabled ? 2 : 0, 
+                        elevation: isButtonEnabled ? 2 : 0,
                       ),
                       child: const Text(
                         'Confirm',

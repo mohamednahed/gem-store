@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:gem_store/screens/auth/SignUpScreen.dart';
+import 'package:gem_store/ReusbleWidget.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formKey = GlobalKey();
-    String? email;
-    String? password;
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(top: 30.0, left: 50, right: 50),
@@ -19,55 +36,66 @@ class Login extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Log into \nyour account',
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 100),
+                const SizedBox(height: 100),
                 Form(
-                  key: formKey,
+                  key: _formKey,
                   child: Column(
                     children: [
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.length < 15) {
-                            return "your Email is too smaller";
-                          }
-                          return "this is valid";
-                        },
-                        onSaved: (newValue) => email = newValue,
+                      CustomTextFormField(
+                        controller: _emailController,
+                        hintText: "Email address",
+                        labelText: "Email address",
+                        prefixIcon: const Icon(Icons.email),
                         keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "Email address",
-                          hintText: "Email address",
-                          prefixIcon: Icon(Icons.email),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      TextFormField(
                         validator: (value) {
-                          if (value!.length < 8) {
-                            return "your password is too smaller";
+                          if (value == null || value.isEmpty) {
+                            return "يرجى إدخال البريد الإلكتروني";
                           }
-                          return "Strong password";
+                          if (value.length < 15) {
+                            return "البريد الإلكتروني قصير جداً";
+                          }
+                          return null;
                         },
-                        onSaved: (newValue) => password = newValue,
-
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          hintText: "Password",
-                          prefixIcon: Icon(Icons.password),
-                        ),
                       ),
+                      const SizedBox(height: 30),
 
+                      CustomTextFormField(
+                        controller: _passwordController,
+                        hintText: "Password",
+                        labelText: "Password",
+                        prefixIcon: const Icon(Icons.password),
+                        obscureText: _obscurePassword, 
+                        keyboardType: TextInputType.text,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "يرجى إدخال كلمة المرور";
+                          }
+                          if (value.length < 8) {
+                            return "كلمة المرور قصيرة جداً (8 أحرف كحد أدنى)";
+                          }
+                          return null;
+                        },
+                      ),
                       const SizedBox(height: 20),
                       Align(
-                        alignment: AlignmentGeometry.centerRight,
+                        alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             "Forget Password ?",
                             style: TextStyle(color: Colors.black),
                           ),
@@ -76,49 +104,47 @@ class Login extends StatelessWidget {
                       const SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                         ),
-                        child: Text(
+                        child: const Text(
                           "LOG IN",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                     ],
                   ),
                 ),
                 Align(
-                  alignment: AlignmentGeometry.center,
+                  alignment: Alignment.center,
                   child: Column(
                     children: [
-                      Text('or log in with'),
-                      SizedBox(height: 30),
+                      const Text('or log in with'),
+                      const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _buildSocialIcon(Icons.apple, Colors.black, () {}),
-
-                          SizedBox(width: 20),
-
+                          const SizedBox(width: 20),
                           _buildSocialIcon(
                             Icons.g_mobiledata_outlined,
                             Colors.yellow,
                             () {},
                           ),
-
-                          SizedBox(width: 20),
-
+                          const SizedBox(width: 20),
                           _buildSocialIcon(Icons.facebook, Colors.blue, () {}),
                         ],
                       ),
-                      SizedBox(height: 70),
+                      const SizedBox(height: 70),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Center(child: Text("Don't have an account ? ")),
+                          const Center(child: Text("Don't have an account ? ")),
                           TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -128,11 +154,9 @@ class Login extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: Text(
+                            child: const Text(
                               "Sign Up",
-                              style: TextStyle(
-                                color: const Color.fromARGB(255, 0, 0, 0),
-                              ),
+                              style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ],
@@ -156,3 +180,4 @@ class Login extends StatelessWidget {
     );
   }
 }
+
