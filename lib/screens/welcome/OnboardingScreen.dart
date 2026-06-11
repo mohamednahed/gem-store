@@ -10,7 +10,7 @@ class OnboardingData {
     required this.title,
     required this.subtitle,
     required this.imagePath,
-    this.imageWidthMultiplier = 0.5, 
+    this.imageWidthMultiplier = 0.5,
   });
 }
 
@@ -77,7 +77,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: SafeArea(
               child: Column(
                 children: [
-                  // Swipeable Content Area
                   Expanded(
                     child: PageView.builder(
                       controller: _pageController,
@@ -105,7 +104,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                 ),
-                              
                               ),
                               const SizedBox(height: 30),
                               SizedBox(
@@ -152,14 +150,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 55,
                     child: OutlinedButton(
                       onPressed: () {
-                        if (_currentIndex < _pages.length - 1) {
-                          // Standard action: animate to the next page
-                          _pageController.nextPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        } else {
-                         }
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 1000),
+                          curve: Curves.easeInOut,
+                        );
                       },
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Colors.white, width: 1.2),
@@ -168,9 +162,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         foregroundColor: Colors.white,
                       ),
                       child: Text(
-                        _currentIndex == _pages.length - 1
-                            ? 'Get Started'
-                            : 'Shopping now',
+                        "Shopping now",
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
