@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gem_store/screens/welcome/Intro1.dart';
+import 'package:gem_store/screens/welcome/OnboardingScreen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       body: Stack(
         children: [
           Image.asset(
@@ -45,7 +45,7 @@ class WelcomeScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          const Intro1(), 
+                          const OnboardingScreen(), 
                     ),
                   );
                 },

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+class DetailsScreen extends StatefulWidget {
+  const DetailsScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _DetailsScreenState extends State<DetailsScreen> {
   bool isFavorite = false;
 
   int selectedColor = 0;
