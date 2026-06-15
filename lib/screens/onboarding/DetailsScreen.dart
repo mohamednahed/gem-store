@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+  final Map<String, String> product;
+
+  const DetailsScreen({super.key, required this.product});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -27,10 +29,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.65,
             width: double.infinity,
-            child: Image.asset(
-              "assets/images/product1.jpg",
-              fit: BoxFit.cover,
-            ),
+            child: Builder(builder: (context) {
+              final image = widget.product['imageUrl'] ?? '';
+              if (image.startsWith('http')) {
+                return Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: Colors.grey.shade300,
+                    child: const Center(child: Icon(Icons.broken_image)),
+                  ),
+                );
+              }
+
+              return Image.asset(
+                image.isEmpty ? 'assets/images/product1.jpg' : image,
+                fit: BoxFit.cover,
+              );
+            }),
           ),
 
           SafeArea(
@@ -96,17 +112,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     // TITLE + PRICE
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text(
-                          "Sportwear Set",
-                          style: TextStyle(
+                          widget.product['title'] ?? 'Product',
+                          style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          "\$80.00",
-                          style: TextStyle(
+                          widget.product['price'] ?? '',
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
