@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Shop extends StatelessWidget {
-  const Shop({super.key});
+class Cart extends StatelessWidget {
+  const Cart({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Shop Screen"),
+        child: Text("Cart Screen"),
       ),
     );
   }

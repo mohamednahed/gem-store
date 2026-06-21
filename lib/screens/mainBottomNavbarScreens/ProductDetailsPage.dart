@@ -4,12 +4,14 @@ class ProductDetailsPage extends StatefulWidget {
   final String productName;
   final String price;
   final String imagePath;
+  final bool useNetworkImage;
 
   const ProductDetailsPage({
     super.key,
     required this.productName,
     required this.price,
     required this.imagePath,
+    this.useNetworkImage = false,
   });
 
   @override
@@ -49,10 +51,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               width: double.infinity,
               height: 300,
               color: Colors.grey[200],
-              child: Image.asset(
-                widget.imagePath,
-                fit: BoxFit.cover,
-              ),
+              child: widget.useNetworkImage
+                  ? Image.network(
+                      widget.imagePath,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    )
+                  : Image.asset(
+                      widget.imagePath,
+                      fit: BoxFit.cover,
+                    ),
             ),
             Padding(
               padding: EdgeInsets.all(20),

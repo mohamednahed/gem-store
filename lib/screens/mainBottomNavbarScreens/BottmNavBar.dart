@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'HomePage.dart';
 import 'ProfileScreen.dart';
 import 'Search.dart';
-import 'Shop.dart';
+import 'Cart.dart';
 
 class BottmNavBar extends StatefulWidget {
   const BottmNavBar({super.key});
@@ -14,7 +14,7 @@ class BottmNavBar extends StatefulWidget {
 class _BottmNavBarState extends State<BottmNavBar> {
   int selectedIndex = 3;
 
-  final pages = const [HomePage(), Search(), Shop(), ProfileScreen()];
+  final pages = const [HomePage(), Search(), Cart(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {

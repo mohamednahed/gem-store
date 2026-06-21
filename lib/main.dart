@@ -3,7 +3,7 @@ import 'package:gem_store/screens/auth/CreateNewPassword.dart';
 import 'package:gem_store/screens/auth/LogInScreen.dart';
 import 'package:gem_store/screens/auth/SignUpScreen.dart';
 import 'package:gem_store/screens/mainBottomNavbarScreens/HomePage.dart';
-import 'package:gem_store/screens/onboarding/DetailsScreen.dart';
+import 'package:gem_store/screens/mainBottomNavbarScreens/DetailsScreen.dart';
 import 'package:gem_store/screens/mainBottomNavbarScreens/BottmNavBar.dart';
 import 'package:gem_store/screens/welcome/OnboardingScreen.dart';
 import 'package:gem_store/screens/welcome/WelcomeScreen.dart';

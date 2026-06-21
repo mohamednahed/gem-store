@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../onboarding/DetailsScreen.dart';
+import 'DetailsScreen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
