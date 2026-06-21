@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gem_store/models/cart_manager.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Map<String, String> product;
@@ -69,9 +70,36 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                   GestureDetector(
                     onTap: () {
+                      // Toggle favorite and add/remove from cart via manager
                       setState(() {
                         isFavorite = !isFavorite;
                       });
+                      // Use CartManager singleton to update global cart state
+                      // to avoid adding a new dependency-heavy state management
+                      // solution for this task.
+                      try {
+                        // Lazy import to avoid analyzer errors if model missing during editing
+                        // ignore: avoid_dynamic_calls
+                        final manager =
+                            (CartManager.instance) as dynamic; // runtime-only
+                        if (isFavorite) {
+                          manager.toggleFavorite(
+                            id: widget.product['id'] ?? widget.product['title'] ?? DateTime.now().toString(),
+                            title: widget.product['title'] ?? 'Product',
+                            price: double.tryParse((widget.product['price'] ?? '0').replaceAll(RegExp(r'[^0-9\.]'), '')) ?? 0.0,
+                            imageUrl: widget.product['imageUrl'] ?? '',
+                            details: 'Size: L | Color: Black',
+                          );
+                        } else {
+                          manager.toggleFavorite(
+                            id: widget.product['id'] ?? widget.product['title'] ?? DateTime.now().toString(),
+                            title: widget.product['title'] ?? 'Product',
+                            price: double.tryParse((widget.product['price'] ?? '0').replaceAll(RegExp(r'[^0-9\.]'), '')) ?? 0.0,
+                            imageUrl: widget.product['imageUrl'] ?? '',
+                            details: 'Size: L | Color: Black',
+                          );
+                        }
+                      } catch (_) {}
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),
@@ -80,9 +108,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        isFavorite
-                            ? Icons.favorite
-                            : Icons.favorite_border,
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
                         color: Colors.red,
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gem_store/models/cart_manager.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final String productName;
@@ -227,12 +228,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
+                            final id = widget.productName;
+                            final priceDouble = double.tryParse(widget.price.replaceAll(RegExp(r'[^0-9\.]'), '')) ?? 0.0;
+                            CartManager.instance.addItem(CartItem(
+                              id: id,
+                              title: widget.productName,
+                              price: priceDouble,
+                              imageUrl: widget.useNetworkImage ? widget.imagePath : '',
+                              details: 'Size: L | Color: Black',
+                              quantity: quantity,
+                            ));
+
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
                                   '$quantity ${widget.productName} added to cart',
                                 ),
-                                duration: Duration(seconds: 2),
+                                duration: const Duration(seconds: 2),
                               ),
                             );
                           },

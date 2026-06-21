@@ -14,7 +14,7 @@ class BottmNavBar extends StatefulWidget {
 class _BottmNavBarState extends State<BottmNavBar> {
   int selectedIndex = 3;
 
-  final pages = const [HomePage(), Search(), Cart(), ProfileScreen()];
+  final pages = const [HomePage(), Search(), CartScreen(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
